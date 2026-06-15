@@ -10,9 +10,40 @@
 
         <!-- Modern AMOLED + MIP devices. Add/remove freely (VS Code:
              "Monkey C: Edit Products" keeps these in sync with your SDK). -->
+        <!-- Round AMOLED devices, grouped by screen resolution (each gets its
+             own font size via resources-round-WxH/). MIP and rectangular watches
+             are intentionally excluded. -->
         <iq:products>
+            <!-- 360x360 -->
+            <iq:product id="venu2s"/>
+            <iq:product id="fr265s"/>
+            <!-- 390x390 -->
             <iq:product id="venu441mm"/>
+            <iq:product id="venu3s"/>
+            <iq:product id="vivoactive5"/>
+            <iq:product id="vivoactive6"/>
+            <iq:product id="fr165"/>
+            <iq:product id="fr170"/>
+            <iq:product id="epix2pro42mm"/>
+            <iq:product id="marq2"/>
+            <!-- 416x416 -->
+            <iq:product id="venu2"/>
+            <iq:product id="venu2plus"/>
+            <iq:product id="fr265"/>
+            <iq:product id="epix2"/>
+            <iq:product id="epix2pro47mm"/>
+            <iq:product id="fenix843mm"/>
+            <iq:product id="d2airx10"/>
+            <iq:product id="d2mach1"/>
+            <!-- 454x454 -->
             <iq:product id="venu445mm"/>
+            <iq:product id="venu3"/>
+            <iq:product id="fr965"/>
+            <iq:product id="fr970"/>
+            <iq:product id="epix2pro51mm"/>
+            <iq:product id="fenix847mm"/>
+            <iq:product id="fenix8pro47mm"/>
+            <iq:product id="d2mach2pro"/>
         </iq:products>
 
         <!-- UserProfile: read resting heart rate. Clock, battery, steps, current

@@ -41,6 +41,7 @@ class LumenView extends Ui.WatchFace {
     var mMono;     // JetBrains Mono, small (rows)
     var mCx;
     var mCy;
+    var mScale = 1.0; // screen width / 390, to scale bar/cursor pixels
     var mLowPower = false;
     var mBurnIn = false;
     var mCurX = 0; // cursor rect, for the blink in onPartialUpdate
@@ -57,6 +58,7 @@ class LumenView extends Ui.WatchFace {
         mMono   = Ui.loadResource(Rez.Fonts.LumenMono);
         mCx = dc.getWidth() / 2;
         mCy = dc.getHeight() / 2;
+        mScale = dc.getWidth() / 390.0;
         mBurnIn = Sys.getDeviceSettings().requiresBurnInProtection;
     }
 
@@ -100,7 +102,8 @@ class LumenView extends Ui.WatchFace {
         var cw = dc.getTextWidthInPixels("0", mMono); // monospace cell width
         // Centre the data block horizontally: 6 label cols + bar + 1 gap col +
         // 5 value cols. Also guarantees values can't overflow the right edge.
-        var barW = BAR_CELLS * BAR_SEG + (BAR_CELLS - 1) * BAR_GAP;
+        var barW = BAR_CELLS * (BAR_SEG * mScale).toNumber()
+                 + (BAR_CELLS - 1) * (BAR_GAP * mScale).toNumber();
         var blockW = cw * 6 + barW + cw + cw * 5;
         var lx = (mCx * 2 - blockW) / 2;
         if (lx < 8) { lx = 8; }
@@ -124,7 +127,7 @@ class LumenView extends Ui.WatchFace {
         mCurX = lx + dc.getTextWidthInPixels(timeStr, mMonoLg) + (clw * 0.3).toNumber();
         mCurY = ty;
         mCurW = (clw * 0.6).toNumber();
-        mCurH = 40;
+        mCurH = (40 * mScale).toNumber();
         blinkCursor(dc, clock.sec % 2 == 0);
 
         // data rows
@@ -172,15 +175,18 @@ class LumenView extends Ui.WatchFace {
         dc.setColor(T_LABEL, BG);
         dc.drawText(lx, y, mMono, label, v);
 
+        var seg = (BAR_SEG * mScale).toNumber();
+        var gap = (BAR_GAP * mScale).toNumber();
+        var bh = (BAR_H * mScale).toNumber();
         var barX = lx + cw * 6;
-        var step = BAR_SEG + BAR_GAP;
-        var top = y - BAR_H / 2;
+        var step = seg + gap;
+        var top = y - bh / 2;
         for (var i = 0; i < BAR_CELLS; i++) {
             dc.setColor(i < filled ? BAR_ON : BAR_OFF, BG);
-            dc.fillRectangle(barX + i * step, top, BAR_SEG, BAR_H);
+            dc.fillRectangle(barX + i * step, top, seg, bh);
         }
 
-        var barW = BAR_CELLS * BAR_SEG + (BAR_CELLS - 1) * BAR_GAP;
+        var barW = BAR_CELLS * seg + (BAR_CELLS - 1) * gap;
         dc.setColor(T_VALUE, BG);
         dc.drawText(barX + barW + cw, y, mMono, value, v);
     }

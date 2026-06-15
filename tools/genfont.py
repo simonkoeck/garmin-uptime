@@ -1,74 +1,85 @@
 #!/usr/bin/env python3
-# Generate Connect IQ custom bitmap fonts (BMFont .fnt + PNG) from a TTF.
+# Generate Connect IQ custom bitmap fonts (BMFont .fnt + PNG) from JetBrains Mono,
+# at one size per supported screen-resolution bucket. White anti-aliased glyphs on
+# transparent (CIQ recolours via setColor); one full line-height cell per glyph so
+# baseline alignment is trivial.
 #
-# Produces white, anti-aliased glyphs on a transparent sheet (Connect IQ tints
-# them with the drawText colour). Each glyph occupies a full line-height cell so
-# baseline alignment is trivial and correct. Digits are tabular (uniform width)
-# so the clock doesn't jiggle as numbers change.
-import os, sys
+# Output goes into Connect IQ resource-qualifier dirs so each device auto-picks the
+# right size:  resources/fonts (390, default) + resources-round-WxH/fonts.
+import os
 from PIL import Image, ImageFont, ImageDraw
 
-OUT = os.path.join(os.path.dirname(__file__), "..", "resources", "fonts")
-os.makedirs(OUT, exist_ok=True)
+ROOT = os.path.normpath(os.path.join(os.path.dirname(__file__), ".."))
+JBM = "/nix/store/sm4799k958k08jhhqvx1sw7gpjqhi75k-jetbrains-mono-2.304/share/fonts/truetype"
+MED = JBM + "/JetBrainsMono-Medium.ttf"
+REG = JBM + "/JetBrainsMonoNL-Regular.ttf"
 
+GLYPHS_LG = "0123456789:> "
+GLYPHS_SM = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789:>_%.,-() /█░"
 
-def gen(name, ttf, size, chars, tabular_digits=False, pad=2):
+# baseline sizes are tuned for the 390 px screen
+BASE_LG = 56
+BASE_SM = 26
+
+# screen width -> resource dir (relative to project root)
+BUCKETS = {
+    390: "resources/fonts",
+    360: "resources-round-360x360/fonts",
+    416: "resources-round-416x416/fonts",
+    454: "resources-round-454x454/fonts",
+}
+
+def gen(name, ttf, size, chars, outdir, pad=2):
     font = ImageFont.truetype(ttf, size)
     asc, desc = font.getmetrics()
     lineH = asc + desc
+    adv = lambda ch: int(round(font.getlength(ch)))
 
-    # per-glyph advance width
-    def adv(ch):
-        return int(round(font.getlength(ch)))
-
-    digitW = max(adv(d) for d in "0123456789") if tabular_digits else 0
-
-    cells = []  # (ch, cellW)
-    for ch in chars:
-        w = adv(ch)
-        if tabular_digits and ch.isdigit():
-            w = digitW
-        cells.append((ch, max(w, 1)))
-
-    # pack into a grid, wrapping near 512px
     maxW = 512
     x = y = 0
     rowH = lineH + pad
-    placed = []  # (ch, cellW, px, py)
-    for ch, w in cells:
+    placed = []
+    for ch in chars:
+        w = max(adv(ch), 1)
         if x + w + pad > maxW:
             x = 0
             y += rowH
         placed.append((ch, w, x, y))
         x += w + pad
-    sheetW = maxW
-    sheetH = y + rowH
+    sheetW, sheetH = maxW, y + rowH
 
     img = Image.new("RGBA", (sheetW, sheetH), (255, 255, 255, 0))
-    draw = ImageDraw.Draw(img)
+    d = ImageDraw.Draw(img)
     for ch, w, px, py in placed:
-        gw = adv(ch)
-        # centre tabular digits within their cell
-        offx = (w - gw) // 2 if (tabular_digits and ch.isdigit()) else 0
-        draw.text((px + offx, py), ch, font=font, fill=(255, 255, 255, 255))
+        d.text((px, py), ch, font=font, fill=(255, 255, 255, 255))
+    img.save(os.path.join(outdir, name + ".png"))
 
-    png = name + ".png"
-    img.save(os.path.join(OUT, png))
-
-    lines = []
-    lines.append('info face="%s" size=%d bold=0 italic=0 charset="" unicode=1 stretchH=100 smooth=1 aa=1 padding=0,0,0,0 spacing=0,0' % (name, size))
-    lines.append('common lineHeight=%d base=%d scaleW=%d scaleH=%d pages=1 packed=0' % (lineH, asc, sheetW, sheetH))
-    lines.append('page id=0 file="%s"' % png)
-    lines.append('chars count=%d' % len(placed))
+    lines = [
+        'info face="%s" size=%d bold=0 italic=0 charset="" unicode=1 stretchH=100 smooth=1 aa=1 padding=0,0,0,0 spacing=0,0' % (name, size),
+        'common lineHeight=%d base=%d scaleW=%d scaleH=%d pages=1 packed=0' % (lineH, asc, sheetW, sheetH),
+        'page id=0 file="%s.png"' % name,
+        'chars count=%d' % len(placed),
+    ]
     for ch, w, px, py in placed:
         lines.append('char id=%d x=%d y=%d width=%d height=%d xoffset=0 yoffset=0 xadvance=%d page=0 chnl=15'
                      % (ord(ch), px, py, w, lineH, w))
-    with open(os.path.join(OUT, name + ".fnt"), "w") as f:
+    with open(os.path.join(outdir, name + ".fnt"), "w") as f:
         f.write("\n".join(lines) + "\n")
-    print("wrote %s.fnt + %s  (%dx%d, %d glyphs, lineH=%d)" % (name, png, sheetW, sheetH, len(placed), lineH))
 
-# Terminal style: JetBrains Mono. Large for the prompt/time, small for data rows.
-JBM = "/nix/store/sm4799k958k08jhhqvx1sw7gpjqhi75k-jetbrains-mono-2.304/share/fonts/truetype"
-gen("lumen_mono_lg", JBM + "/JetBrainsMono-Medium.ttf", 56, "0123456789:> ")
-gen("lumen_mono", JBM + "/JetBrainsMonoNL-Regular.ttf", 26,
-    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789:>_%.,-() /█░")
+FONTS_XML = '''<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- JetBrains Mono bitmap fonts (generated by tools/genfont.py). -->
+    <font id="LumenMonoLg" filename="lumen_mono_lg.fnt"/>
+    <font id="LumenMono" filename="lumen_mono.fnt"/>
+</resources>
+'''
+
+for W, sub in BUCKETS.items():
+    outdir = os.path.join(ROOT, sub)
+    os.makedirs(outdir, exist_ok=True)
+    s = W / 390.0
+    gen("lumen_mono_lg", MED, round(BASE_LG * s), GLYPHS_LG, outdir)
+    gen("lumen_mono", REG, round(BASE_SM * s), GLYPHS_SM, outdir)
+    with open(os.path.join(outdir, "fonts.xml"), "w") as f:
+        f.write(FONTS_XML)
+    print("%-32s lg=%d sm=%d" % (sub, round(BASE_LG * s), round(BASE_SM * s)))
