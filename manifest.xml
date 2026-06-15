@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<iq:manifest xmlns:iq="http://www.garmin.com/xml/connectiq" version="3">
+    <iq:application
+        entry="LumenApp"
+        id="43dbe389ef9246dfb35865cc054599d5"
+        launcherIcon="@Drawables.LauncherIcon"
+        minApiLevel="3.2.0"
+        name="@Strings.AppName"
+        type="watchface">
+
+        <!-- Modern AMOLED + MIP devices. Add/remove freely (VS Code:
+             "Monkey C: Edit Products" keeps these in sync with your SDK). -->
+        <iq:products>
+            <iq:product id="venu441mm"/>
+            <iq:product id="venu445mm"/>
+        </iq:products>
+
+        <!-- UserProfile: read resting heart rate. Clock, battery, steps, current
+             heart rate and date need no permission. -->
+        <iq:permissions>
+            <iq:uses-permission id="UserProfile"/>
+        </iq:permissions>
+
+        <iq:languages>
+            <iq:language>eng</iq:language>
+        </iq:languages>
+    </iq:application>
+</iq:manifest>

@@ -1,0 +1,3 @@
+# Build configuration for the Lumen watch face.
+# Default source + resources resolution is convention-based; nothing custom needed.
+project.manifest = manifest.xml

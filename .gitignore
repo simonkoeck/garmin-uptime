@@ -1,0 +1,12 @@
+bin/
+*.prg
+*.iq
+developer_key
+developer_key.pem
+developer_key.der
+*.debug.xml
+
+# nix / direnv
+.direnv/
+result
+result-*
