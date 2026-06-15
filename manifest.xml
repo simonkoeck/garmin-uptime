@@ -44,6 +44,10 @@
             <iq:product id="fenix847mm"/>
             <iq:product id="fenix8pro47mm"/>
             <iq:product id="d2mach2pro"/>
+            <!-- rectangular AMOLED -->
+            <iq:product id="venusq2"/>     <!-- 320x360 -->
+            <iq:product id="venusq2m"/>    <!-- 320x360 -->
+            <iq:product id="venux1"/>      <!-- 448x486 -->
         </iq:products>
 
         <!-- UserProfile: read resting heart rate. Clock, battery, steps, current

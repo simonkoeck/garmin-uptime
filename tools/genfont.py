@@ -21,13 +21,15 @@ GLYPHS_SM = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789:>_%.
 BASE_LG = 56
 BASE_SM = 26
 
-# screen width -> resource dir (relative to project root)
-BUCKETS = {
-    390: "resources/fonts",
-    360: "resources-round-360x360/fonts",
-    416: "resources-round-416x416/fonts",
-    454: "resources-round-454x454/fonts",
-}
+# (screen width for scaling, resource dir relative to project root)
+BUCKETS = [
+    (390, "resources/fonts"),                       # round 390 (default)
+    (360, "resources-round-360x360/fonts"),
+    (416, "resources-round-416x416/fonts"),
+    (454, "resources-round-454x454/fonts"),
+    (320, "resources-rectangle-320x360/fonts"),     # Venu Sq 2
+    (448, "resources-rectangle-448x486/fonts"),     # Venu X1
+]
 
 def gen(name, ttf, size, chars, outdir, pad=2):
     font = ImageFont.truetype(ttf, size)
@@ -74,7 +76,7 @@ FONTS_XML = '''<?xml version="1.0" encoding="UTF-8"?>
 </resources>
 '''
 
-for W, sub in BUCKETS.items():
+for W, sub in BUCKETS:
     outdir = os.path.join(ROOT, sub)
     os.makedirs(outdir, exist_ok=True)
     s = W / 390.0
