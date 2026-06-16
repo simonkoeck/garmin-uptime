@@ -144,7 +144,13 @@ class LumenView extends Ui.WatchFace {
         var act = Activity.getActivityInfo();
         var cur = (act != null && act.currentHeartRate != null) ? act.currentHeartRate : null;
         var prof = UserProfile.getProfile();
-        var rest = (prof != null && prof.restingHeartRate != null) ? prof.restingHeartRate : null;
+        // averageRestingHeartRate is the 7-day auto-computed value that actually
+        // updates daily; restingHeartRate is the static user-configured one and
+        // never changes on its own. Fall back to the configured value if unset.
+        var rest = null;
+        if (prof != null) {
+            rest = (prof.averageRestingHeartRate != null) ? prof.averageRestingHeartRate : prof.restingHeartRate;
+        }
         var hrStr   = (cur  != null) ? cur.format("%d") + " bpm"  : "--";
         var restStr = (rest != null) ? rest.format("%d") + " bpm" : "--";
 
