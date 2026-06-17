@@ -15,7 +15,15 @@ MED = JBM + "/JetBrainsMono-Medium.ttf"
 REG = JBM + "/JetBrainsMonoNL-Regular.ttf"
 
 GLYPHS_LG = "0123456789:> "
-GLYPHS_SM = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789:>_%.,-() /█░"
+# Localized weekday/month names (Gregorian.info FORMAT_MEDIUM) carry diacritics in
+# most European locales — Polish środa/październik, German Mär, Czech, French, etc.
+# Include a broad Latin-1 + Latin Extended-A set so they render instead of tofu.
+DIACRITICS = (
+    "àáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ"
+    "ĀāĂăĄąĆćČčĎďĐđĒēĖėĘęĚěĞğĪīĮįİıŁłŃńŇňŌōŐőŒœŔŕŘřŚśŞşŠšŢţŤťŪūŮůŰűŹźŻżŽž"
+    "ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞ"
+)
+GLYPHS_SM = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789:>_%.,-() /█░" + DIACRITICS
 
 # baseline sizes are tuned for the 390 px screen
 BASE_LG = 56
