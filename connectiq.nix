@@ -36,6 +36,7 @@
 , xorg
 , webkitgtk
 , libsoup
+, glib-networking
 , wrapGAppsHook
 , librsvg
 , gsettings-desktop-schemas
@@ -90,6 +91,7 @@ stdenv.mkDerivation (finalAttrs: {
     xorg.libICE
     webkitgtk # libwebkit2gtk-4.0.so.37 + libjavascriptcoregtk-4.0.so.18
     libsoup # libsoup-2.4.so.1
+    glib-networking # GIO TLS backend (libgiognutls) — needed for sim login/HTTPS
     # GTK runtime data the GUI simulator needs to actually render:
     librsvg # SVG pixbuf loader (symbolic icons)
     gsettings-desktop-schemas
@@ -163,14 +165,18 @@ CIQEOF
   # This is an old wxGTK app that doesn't render properly on native Wayland, so
   # pin it to X11/XWayland: set GDK_BACKEND=x11 AND unset WAYLAND_DISPLAY so GTK
   # can't half-initialise on Wayland and end up never mapping a window.
-  # GIO_EXTRA_MODULES is unset to silence the host's (newer-glib) gio modules
-  # that the 23.11 glib rejects. The simulator runs from the read-only store dir.
+  # GIO_EXTRA_MODULES is pinned to the 23.11 glib-networking instead of being
+  # inherited from the host: it must NOT pull in the host's newer-glib gio
+  # modules (the 23.11 glib rejects them), but it DOES need glib-networking's
+  # TLS backend (libgiognutls) or the simulator has no SSL and can't log in
+  # ("TLS/SSL support not available"). The simulator runs from the read-only
+  # store dir.
   postFixup = ''
     makeWrapper "$out/opt/connectiq/bin/connectiq" "$out/bin/connectiq" \
       --prefix PATH : ${lib.makeBinPath [ jdk17 ]} \
       --set GDK_BACKEND x11 \
       --unset WAYLAND_DISPLAY \
-      --unset GIO_EXTRA_MODULES \
+      --set GIO_EXTRA_MODULES "${glib-networking}/lib/gio/modules" \
       "''${gappsWrapperArgs[@]}"
   '';
 

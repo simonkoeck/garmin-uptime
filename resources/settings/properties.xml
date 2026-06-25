@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Five configurable field slots. Defaults reproduce the original fixed
+     layout: date / hr / rest / steps / battery. Values are field ids; see
+     the FIELD_* constants in source/LumenView.mc. -->
+<properties>
+    <!-- Appearance. Defaults reproduce the original monochrome look. -->
+    <property id="theme" type="number">0</property>        <!-- 0 mono, 1 green, 2 amber -->
+    <property id="promptChar" type="number">0</property>   <!-- 0 > , 1 $, 2 #, 3 ~, 4 : -->
+    <property id="cursorStyle" type="number">0</property>  <!-- 0 block, 1 underscore, 2 pipe -->
+    <property id="cursorBlink" type="boolean">true</property>
+    <property id="dateFmt" type="number">0</property>      <!-- 0 weekday, 1 ISO, 2 numeric -->
+
+    <!-- Field slots -->
+    <property id="slot1" type="number">1</property>   <!-- date -->
+    <property id="slot2" type="number">2</property>   <!-- hr -->
+    <property id="slot3" type="number">3</property>   <!-- rest -->
+    <property id="slot4" type="number">4</property>   <!-- steps (bar) -->
+    <property id="slot5" type="number">5</property>   <!-- battery (bar) -->
+</properties>

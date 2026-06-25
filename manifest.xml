@@ -50,10 +50,12 @@
             <iq:product id="venux1"/>      <!-- 448x486 -->
         </iq:products>
 
-        <!-- UserProfile: read resting heart rate. Clock, battery, steps, current
-             heart rate and date need no permission. -->
+        <!-- UserProfile: read resting heart rate. SensorHistory: stress + body
+             battery fields. Clock, battery, steps, current heart rate, floors,
+             active minutes, calories, distance and date need no permission. -->
         <iq:permissions>
             <iq:uses-permission id="UserProfile"/>
+            <iq:uses-permission id="SensorHistory"/>
         </iq:permissions>
 
         <iq:languages>

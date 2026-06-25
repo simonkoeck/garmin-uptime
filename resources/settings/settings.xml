@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- User-configurable fields, edited in the Garmin Connect mobile app
+     (Connect IQ Store > uptime > Settings). Each of the five rows below the
+     clock can be set to any metric or turned off. -->
+<settings>
+    <!-- Appearance -->
+    <setting propertyKey="@Properties.theme" title="@Strings.ThemeTitle">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.ThemeMono</listEntry>
+            <listEntry value="1">@Strings.ThemeGreen</listEntry>
+            <listEntry value="2">@Strings.ThemeAmber</listEntry>
+        </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.promptChar" title="@Strings.PromptTitle">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.PromptGt</listEntry>
+            <listEntry value="1">@Strings.PromptDollar</listEntry>
+            <listEntry value="2">@Strings.PromptHash</listEntry>
+            <listEntry value="3">@Strings.PromptTilde</listEntry>
+            <listEntry value="4">@Strings.PromptColon</listEntry>
+        </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.cursorStyle" title="@Strings.CursorTitle">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.CursorBlock</listEntry>
+            <listEntry value="1">@Strings.CursorUnderscore</listEntry>
+            <listEntry value="2">@Strings.CursorPipe</listEntry>
+        </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.cursorBlink" title="@Strings.CursorBlinkTitle">
+        <settingConfig type="boolean"/>
+    </setting>
+    <setting propertyKey="@Properties.dateFmt" title="@Strings.DateFmtTitle">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.DateNamed</listEntry>
+            <listEntry value="1">@Strings.DateIso</listEntry>
+            <listEntry value="2">@Strings.DateDotted</listEntry>
+        </settingConfig>
+    </setting>
+
+    <!-- Field slots -->
+    <setting propertyKey="@Properties.slot1" title="@Strings.Slot1">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.FieldOff</listEntry>
+            <listEntry value="1">@Strings.FieldDate</listEntry>
+            <listEntry value="2">@Strings.FieldHr</listEntry>
+            <listEntry value="3">@Strings.FieldRest</listEntry>
+            <listEntry value="4">@Strings.FieldSteps</listEntry>
+            <listEntry value="5">@Strings.FieldBattery</listEntry>
+            <listEntry value="6">@Strings.FieldStress</listEntry>
+            <listEntry value="7">@Strings.FieldBodyBattery</listEntry>
+            <listEntry value="8">@Strings.FieldFloors</listEntry>
+            <listEntry value="9">@Strings.FieldActive</listEntry>
+            <listEntry value="10">@Strings.FieldCalories</listEntry>
+            <listEntry value="11">@Strings.FieldDistance</listEntry>
+            <listEntry value="12">@Strings.FieldWeather</listEntry>
+            <listEntry value="13">@Strings.FieldNotifs</listEntry>
+            <listEntry value="14">@Strings.FieldStatus</listEntry>
+            <listEntry value="15">@Strings.FieldAltitude</listEntry>
+            <listEntry value="16">@Strings.FieldSpo2</listEntry>
+        </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.slot2" title="@Strings.Slot2">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.FieldOff</listEntry>
+            <listEntry value="1">@Strings.FieldDate</listEntry>
+            <listEntry value="2">@Strings.FieldHr</listEntry>
+            <listEntry value="3">@Strings.FieldRest</listEntry>
+            <listEntry value="4">@Strings.FieldSteps</listEntry>
+            <listEntry value="5">@Strings.FieldBattery</listEntry>
+            <listEntry value="6">@Strings.FieldStress</listEntry>
+            <listEntry value="7">@Strings.FieldBodyBattery</listEntry>
+            <listEntry value="8">@Strings.FieldFloors</listEntry>
+            <listEntry value="9">@Strings.FieldActive</listEntry>
+            <listEntry value="10">@Strings.FieldCalories</listEntry>
+            <listEntry value="11">@Strings.FieldDistance</listEntry>
+            <listEntry value="12">@Strings.FieldWeather</listEntry>
+            <listEntry value="13">@Strings.FieldNotifs</listEntry>
+            <listEntry value="14">@Strings.FieldStatus</listEntry>
+            <listEntry value="15">@Strings.FieldAltitude</listEntry>
+            <listEntry value="16">@Strings.FieldSpo2</listEntry>
+        </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.slot3" title="@Strings.Slot3">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.FieldOff</listEntry>
+            <listEntry value="1">@Strings.FieldDate</listEntry>
+            <listEntry value="2">@Strings.FieldHr</listEntry>
+            <listEntry value="3">@Strings.FieldRest</listEntry>
+            <listEntry value="4">@Strings.FieldSteps</listEntry>
+            <listEntry value="5">@Strings.FieldBattery</listEntry>
+            <listEntry value="6">@Strings.FieldStress</listEntry>
+            <listEntry value="7">@Strings.FieldBodyBattery</listEntry>
+            <listEntry value="8">@Strings.FieldFloors</listEntry>
+            <listEntry value="9">@Strings.FieldActive</listEntry>
+            <listEntry value="10">@Strings.FieldCalories</listEntry>
+            <listEntry value="11">@Strings.FieldDistance</listEntry>
+            <listEntry value="12">@Strings.FieldWeather</listEntry>
+            <listEntry value="13">@Strings.FieldNotifs</listEntry>
+            <listEntry value="14">@Strings.FieldStatus</listEntry>
+            <listEntry value="15">@Strings.FieldAltitude</listEntry>
+            <listEntry value="16">@Strings.FieldSpo2</listEntry>
+        </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.slot4" title="@Strings.Slot4">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.FieldOff</listEntry>
+            <listEntry value="1">@Strings.FieldDate</listEntry>
+            <listEntry value="2">@Strings.FieldHr</listEntry>
+            <listEntry value="3">@Strings.FieldRest</listEntry>
+            <listEntry value="4">@Strings.FieldSteps</listEntry>
+            <listEntry value="5">@Strings.FieldBattery</listEntry>
+            <listEntry value="6">@Strings.FieldStress</listEntry>
+            <listEntry value="7">@Strings.FieldBodyBattery</listEntry>
+            <listEntry value="8">@Strings.FieldFloors</listEntry>
+            <listEntry value="9">@Strings.FieldActive</listEntry>
+            <listEntry value="10">@Strings.FieldCalories</listEntry>
+            <listEntry value="11">@Strings.FieldDistance</listEntry>
+            <listEntry value="12">@Strings.FieldWeather</listEntry>
+            <listEntry value="13">@Strings.FieldNotifs</listEntry>
+            <listEntry value="14">@Strings.FieldStatus</listEntry>
+            <listEntry value="15">@Strings.FieldAltitude</listEntry>
+            <listEntry value="16">@Strings.FieldSpo2</listEntry>
+        </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.slot5" title="@Strings.Slot5">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.FieldOff</listEntry>
+            <listEntry value="1">@Strings.FieldDate</listEntry>
+            <listEntry value="2">@Strings.FieldHr</listEntry>
+            <listEntry value="3">@Strings.FieldRest</listEntry>
+            <listEntry value="4">@Strings.FieldSteps</listEntry>
+            <listEntry value="5">@Strings.FieldBattery</listEntry>
+            <listEntry value="6">@Strings.FieldStress</listEntry>
+            <listEntry value="7">@Strings.FieldBodyBattery</listEntry>
+            <listEntry value="8">@Strings.FieldFloors</listEntry>
+            <listEntry value="9">@Strings.FieldActive</listEntry>
+            <listEntry value="10">@Strings.FieldCalories</listEntry>
+            <listEntry value="11">@Strings.FieldDistance</listEntry>
+            <listEntry value="12">@Strings.FieldWeather</listEntry>
+            <listEntry value="13">@Strings.FieldNotifs</listEntry>
+            <listEntry value="14">@Strings.FieldStatus</listEntry>
+            <listEntry value="15">@Strings.FieldAltitude</listEntry>
+            <listEntry value="16">@Strings.FieldSpo2</listEntry>
+        </settingConfig>
+    </setting>
+</settings>

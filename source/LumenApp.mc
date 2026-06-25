@@ -17,4 +17,9 @@ class LumenApp extends App.AppBase {
     function getInitialView() {
         return [ new LumenView() ];
     }
+
+    // Re-render when the user changes field selections in Garmin Connect.
+    function onSettingsChanged() {
+        Ui.requestUpdate();
+    }
 }

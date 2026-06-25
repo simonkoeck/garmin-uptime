@@ -1,4 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <strings>
     <string id="AppName">uptime</string>
+
+    <!-- Settings: appearance -->
+    <string id="ThemeTitle">Color Theme</string>
+    <string id="ThemeMono">Monochrome</string>
+    <string id="ThemeGreen">Green Phosphor</string>
+    <string id="ThemeAmber">Amber</string>
+
+    <string id="PromptTitle">Prompt Symbol</string>
+    <string id="PromptGt">&gt;</string>
+    <string id="PromptDollar">$</string>
+    <string id="PromptHash">#</string>
+    <string id="PromptTilde">~</string>
+    <string id="PromptColon">:</string>
+
+    <string id="CursorTitle">Cursor Style</string>
+    <string id="CursorBlock">Block</string>
+    <string id="CursorUnderscore">Underscore</string>
+    <string id="CursorPipe">Pipe</string>
+
+    <string id="CursorBlinkTitle">Blinking Cursor</string>
+
+    <string id="DateFmtTitle">Date Format</string>
+    <string id="DateNamed">Weekday (mon 15 jun)</string>
+    <string id="DateIso">ISO (2026-06-25)</string>
+    <string id="DateDotted">Numeric (15.06)</string>
+
+    <!-- Settings: field slot titles -->
+    <string id="Slot1">Field 1</string>
+    <string id="Slot2">Field 2</string>
+    <string id="Slot3">Field 3</string>
+    <string id="Slot4">Field 4</string>
+    <string id="Slot5">Field 5</string>
+
+    <!-- Settings: selectable metrics -->
+    <string id="FieldOff">Off</string>
+    <string id="FieldDate">Date</string>
+    <string id="FieldHr">Heart Rate</string>
+    <string id="FieldRest">Resting HR</string>
+    <string id="FieldSteps">Steps</string>
+    <string id="FieldBattery">Battery</string>
+    <string id="FieldStress">Stress</string>
+    <string id="FieldBodyBattery">Body Battery</string>
+    <string id="FieldFloors">Floors</string>
+    <string id="FieldActive">Active Minutes</string>
+    <string id="FieldCalories">Calories</string>
+    <string id="FieldDistance">Distance</string>
+    <string id="FieldWeather">Weather (Temp)</string>
+    <string id="FieldNotifs">Notifications</string>
+    <string id="FieldStatus">Status (BT/DND/Alarm)</string>
+    <string id="FieldAltitude">Altitude</string>
+    <string id="FieldSpo2">Pulse Ox (SpO2)</string>
 </strings>

@@ -9,11 +9,11 @@ OUT="${2:-/tmp/lumen-shot.png}"
 nix shell .#connectiq nixpkgs#xvfb-run nixpkgs#xorg.xwininfo nixpkgs#imagemagick -c bash -c '
   set -e
   DEVICE="'"$DEVICE"'"; OUT="'"$OUT"'"
-  monkeyc -d "$DEVICE" -f monkey.jungle -o bin/Lumen.prg -y developer_key
+  monkeyc -d "$DEVICE" -f monkey.jungle -o bin/uptime.prg -y developer_key
   xvfb-run -a -s "-screen 0 1500x1100x24" bash -c "
     connectiq >/tmp/sim.log 2>&1 &
     sleep 14
-    monkeydo bin/Lumen.prg \"$DEVICE\" >/tmp/do.log 2>&1
+    monkeydo bin/uptime.prg \"$DEVICE\" >/tmp/do.log 2>&1
     sleep 9
     xwininfo -root -tree >/tmp/tree.txt 2>&1
     # the simulator window is the largest non-root window

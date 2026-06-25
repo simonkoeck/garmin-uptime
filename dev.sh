@@ -18,8 +18,8 @@ fi
 mkdir -p bin
 
 reload() {
-  if monkeyc -d "$DEVICE" -f monkey.jungle -o bin/Lumen.prg -y developer_key; then
-    monkeydo bin/Lumen.prg "$DEVICE" || \
+  if monkeyc -d "$DEVICE" -f monkey.jungle -o bin/uptime.prg -y developer_key; then
+    monkeydo bin/uptime.prg "$DEVICE" || \
       echo "!! monkeydo failed — is the simulator open? (nix develop -c connectiq &)"
   else
     echo "!! build failed — fix the error above; watching for the next save."
@@ -29,4 +29,4 @@ reload() {
 reload
 echo ">> watching source/ resources/ manifest.xml — edit and save to reload (Ctrl-C to stop)"
 watchexec --debounce 300ms --watch source --watch resources --watch manifest.xml -- \
-  "monkeyc -d $DEVICE -f monkey.jungle -o bin/Lumen.prg -y developer_key && monkeydo bin/Lumen.prg $DEVICE"
+  "monkeyc -d $DEVICE -f monkey.jungle -o bin/uptime.prg -y developer_key && monkeydo bin/uptime.prg $DEVICE"

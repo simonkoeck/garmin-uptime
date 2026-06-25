@@ -14,7 +14,7 @@ set -euo pipefail
 cd "$(dirname "$0")"
 
 DEVICE="${1:-venu441mm}"
-PRG="bin/Lumen.prg"
+PRG="bin/uptime.prg"
 
 if [ ! -f developer_key ]; then
   echo "ERROR: developer_key not found. Generate it once inside 'nix develop':" >&2
@@ -58,6 +58,6 @@ echo ">> Unmounting ..."
 gio mount -u "$URI" 2>/dev/null || true
 
 echo
-echo "Done. Unplug the watch, then pick 'Lumen' from the watch-face list."
+echo "Done. Unplug the watch, then pick 'uptime' from the watch-face list."
 echo "(On music watches the file vanishes from GARMIN/Apps after unplug — that's"
 echo " normal; it moved to protected storage, meaning it installed.)"
