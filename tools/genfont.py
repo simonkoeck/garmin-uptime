@@ -14,7 +14,8 @@ JBM = "/nix/store/sm4799k958k08jhhqvx1sw7gpjqhi75k-jetbrains-mono-2.304/share/fo
 MED = JBM + "/JetBrainsMono-Medium.ttf"
 REG = JBM + "/JetBrainsMonoNL-Regular.ttf"
 
-GLYPHS_LG = "0123456789:> "
+# digits + ':' for the clock, and all selectable prompt symbols ('> $ # ~ :').
+GLYPHS_LG = "0123456789:>$#~ "
 # Localized weekday/month names (Gregorian.info FORMAT_MEDIUM) carry diacritics in
 # most European locales — Polish środa/październik, German Mär, Czech, French, etc.
 # Include a broad Latin-1 + Latin Extended-A set so they render instead of tofu.
