@@ -236,6 +236,10 @@ class LumenView extends Ui.WatchFace {
     const FIELD_ALTITUDE     = 15;
     const FIELD_SPO2         = 16;  // bar
 
+    // How many SensorHistory samples to scan back for the newest non-null
+    // value (the most-recent bucket is often an empty placeholder).
+    const SENSOR_SCAN = 8;
+
     // Read a property, falling back to its default if unset. Used for both the
     // numeric field/appearance settings and the boolean cursor-blink toggle.
     function slot(key, dflt) {
@@ -391,16 +395,34 @@ class LumenView extends Ui.WatchFace {
         return null; // FIELD_OFF or unknown
     }
 
+    // Newest non-null sample value from a SensorHistory iterator, or null.
+    // The most-recent bucket is often a placeholder with `data == null` even
+    // when valid readings exist just behind it, so we scan back a few samples
+    // instead of giving up on the very first one.
+    hidden function newestSample(iter) {
+        if (iter == null) {
+            return null;
+        }
+        for (var i = 0; i < SENSOR_SCAN; i += 1) {
+            var s = iter.next();
+            if (s == null) {
+                break;
+            }
+            if (s.data != null) {
+                return s.data;
+            }
+        }
+        return null;
+    }
+
     // Most-recent stress score, or null when unsupported/unavailable.
     function getStress() {
         if (!(Toybox has :SensorHistory) || !(SensorHistory has :getStressHistory)) {
             return null;
         }
-        var iter = SensorHistory.getStressHistory({
-            :period => 1, :order => SensorHistory.ORDER_NEWEST_FIRST
-        });
-        var s = (iter != null) ? iter.next() : null;
-        return (s != null && s.data != null) ? s.data : null;
+        return newestSample(SensorHistory.getStressHistory({
+            :period => SENSOR_SCAN, :order => SensorHistory.ORDER_NEWEST_FIRST
+        }));
     }
 
     // Most-recent Body Battery level (0–100), or null when unsupported.
@@ -408,11 +430,9 @@ class LumenView extends Ui.WatchFace {
         if (!(Toybox has :SensorHistory) || !(SensorHistory has :getBodyBatteryHistory)) {
             return null;
         }
-        var iter = SensorHistory.getBodyBatteryHistory({
-            :period => 1, :order => SensorHistory.ORDER_NEWEST_FIRST
-        });
-        var s = (iter != null) ? iter.next() : null;
-        return (s != null && s.data != null) ? s.data : null;
+        return newestSample(SensorHistory.getBodyBatteryHistory({
+            :period => SENSOR_SCAN, :order => SensorHistory.ORDER_NEWEST_FIRST
+        }));
     }
 
     // Most-recent blood-oxygen % (0–100), or null when unsupported.
@@ -420,11 +440,9 @@ class LumenView extends Ui.WatchFace {
         if (!(Toybox has :SensorHistory) || !(SensorHistory has :getOxygenSaturationHistory)) {
             return null;
         }
-        var iter = SensorHistory.getOxygenSaturationHistory({
-            :period => 1, :order => SensorHistory.ORDER_NEWEST_FIRST
-        });
-        var s = (iter != null) ? iter.next() : null;
-        return (s != null && s.data != null) ? s.data : null;
+        return newestSample(SensorHistory.getOxygenSaturationHistory({
+            :period => SENSOR_SCAN, :order => SensorHistory.ORDER_NEWEST_FIRST
+        }));
     }
 
     function drawRow(dc as Gfx.Dc, lx as Lang.Number, cw as Lang.Number, y as Lang.Number, label as Lang.String, value as Lang.String) as Void {
